@@ -9,6 +9,9 @@ data class Task(
     @PrimaryKey(autoGenerate = true)
     var taskId: Long = 0L,
 
+    @ColumnInfo(name = "task_executor")
+    var taskExecutor: String = "",
+
     @ColumnInfo(name = "task_name")
     var taskName: String = "",
 

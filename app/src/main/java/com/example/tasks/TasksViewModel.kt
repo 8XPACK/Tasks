@@ -7,6 +7,8 @@ import kotlinx.coroutines.launch
 
 class TasksViewModel(val dao: TaskDao) : ViewModel() {
     var newTaskName = ""
+    var taskExecutor = ""
+
     private val tasks = dao.getAll()
 //    начиная с Lifecycle_version >= 2.6.0,
 //    вместо val tasksString = Transformations.map(tasks) {
@@ -18,6 +20,7 @@ class TasksViewModel(val dao: TaskDao) : ViewModel() {
         viewModelScope.launch {
             val task = Task()
             task.taskName = newTaskName
+            task.taskExecutor = taskExecutor
             dao.insert(task)
         }
     }
@@ -30,6 +33,7 @@ class TasksViewModel(val dao: TaskDao) : ViewModel() {
 
     fun formatTask(task: Task): String {
         var str = "ID: ${task.taskId}"
+        str += '\n' + "Executor Task: ${task.taskExecutor}" + '\n'
         str += '\n' + "Name: ${task.taskName}"
         str += '\n' + "Complete: ${task.taskDone}" + '\n'
 
